@@ -8,4 +8,4 @@ def load_config(path):
         with pth.open('r') as f:
             return json.load(f)
     else:
-        raise ConfigError('No config file found.')
+        raise FileNotFoundError(f'No config file found - {path}')
