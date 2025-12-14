@@ -18,16 +18,16 @@ def main():
     
     try:
         while True:
-            time, temp, hum, press = sense_env_data()
+            ts, temp, hum, press = sense_env_data()
             payload = {
-                'timestamp': time,
-                'room': ROOM,
+                'timestamp': ts,
+                'room': config['id'],
                 'temparature': temp,
                 'himidity': hum,
                 'pressure': press
             }
 
-            client.publish(f'{config.id}/env', json.dumps(payload), qos=QOS)
+            client.publish(f'{config['id']}/env', json.dumps(payload), qos=QOS)
             print(f"published: {payload}")
             
             time.sleep(PUBLISH_INTERVAL)
