@@ -6,7 +6,8 @@ from sensor import sense_env_data
 
 MASTER_IP = '192.168.0.17'
 PORT = 1883
-TOPIC = 'room_1/env'
+ROOM = 'room1'
+TOPIC = f'{ROOM}/env'
 PUBLISH_INTERVAL = 5
 QOS = 1
 
@@ -18,10 +19,18 @@ def main():
     
     try:
         while True:
-            data = sense_env_data()
-            print(f"published: {data}")
+            time, temp, hum, press = sense_env_data()
+            payload = {
+                'timestamp': time,
+                'room': ROOM,
+                'temparature': temp,
+                'himidity': hum,
+                'pressure': press
+            }
 
-            client.publish(TOPIC, json.dumps(data), qos=QOS)
+            client.publish(TOPIC, json.dumps(payload), qos=QOS)
+            print(f"published: {payload}")
+            
             time.sleep(PUBLISH_INTERVAL)
             
     except KeyboardInterrupt:
