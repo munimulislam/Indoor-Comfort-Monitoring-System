@@ -14,6 +14,7 @@ def main():
     client = mqtt.Client(protocol=mqtt.MQTTv5, client_id =config['id'])
     client.username_pw_set(username = config['mqtt']['username'], password=config['mqtt']['password'])
     client.connect(config['mqtt']['ip'], config['mqtt']['port'], 60)
+    client.reconnect_delay_set(min_delay = 1, max_delay=120)
     client.loop_start()
     
     try:
