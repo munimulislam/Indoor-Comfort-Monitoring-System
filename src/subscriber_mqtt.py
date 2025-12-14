@@ -7,6 +7,7 @@ TOPIC = "+/env"
 QOS = 1
 
 def on_connect(client, data, flags, reason_code, props):
+    print(reason_code)
     if reason_code == 0:
         print("connected to broker")
         client.subscribe(TOPIC,QOS)
@@ -17,6 +18,7 @@ def on_message(client, data, msg):
     
 def main():
     client = mqtt.Client(protocol=mqtt.MQTTv5)
+    client.username_pw_set(username='master', password='master')
     client.on_connect = on_connect
     client.on_message = on_message
     client.connect(HOST, PORT, 60)
