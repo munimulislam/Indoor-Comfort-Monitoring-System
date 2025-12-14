@@ -3,18 +3,17 @@ import time
 import paho.mqtt.client as mqtt
 
 from sensor import sense_env_data
+from config import load_config
 
-MASTER_IP = '192.168.0.17'
-PORT = 1883
-ROOM = 'room1'
-TOPIC = f'{ROOM}/env'
 PUBLISH_INTERVAL = 5
 QOS = 1
 
 def main():
-    client = mqtt.Client(protocol=mqtt.MQTTv5, client_id ='room1')
-    client.username_pw_set(username = 'room1', password='room1')
-    client.connect(MASTER_IP, PORT, 60)
+    config = load_config('../config/room1.config.json')
+    
+    client = mqtt.Client(protocol=mqtt.MQTTv5, client_id =config.id)
+    client.username_pw_set(username = config.mqtt.username, password=config.mqtt.password)
+    client.connect(config.mqtt.ip, config.mqtt.port, 60)
     client.loop_start()
     
     try:
@@ -28,7 +27,7 @@ def main():
                 'pressure': press
             }
 
-            client.publish(TOPIC, json.dumps(payload), qos=QOS)
+            client.publish(f'{config.id}/env', json.dumps(payload), qos=QOS)
             print(f"published: {payload}")
             
             time.sleep(PUBLISH_INTERVAL)

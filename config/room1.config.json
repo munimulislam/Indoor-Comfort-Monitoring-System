@@ -1,0 +1,9 @@
+{
+    'id': 'room1'
+    'mqtt': {
+        'ip': '192.168.0.17',
+        'port': 1883,
+        'username': 'room1'
+        'password': 'room1',
+    }
+}
