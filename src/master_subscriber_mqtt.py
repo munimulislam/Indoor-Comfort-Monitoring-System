@@ -6,7 +6,6 @@ TOPIC = "+/env"
 QOS = 1
 
 def on_connect(client, data, flags, reason_code, props):
-    print(reason_code)
     if reason_code == 0:
         print("connected to broker")
         client.subscribe(TOPIC,QOS)
@@ -16,15 +15,16 @@ def on_message(client, data, msg):
     print(data_in)
     
 def main():
-    config = load_config('../config/master.config.json')
+    config = load_config('./config/master.config.json')
+    print(config)
 
-    client = mqtt.Client(protocol=mqtt.MQTTv5, client_id =config.id)
-    client.username_pw_set(username = config.mqtt.username, password=config.mqtt.password)
+    client = mqtt.Client(protocol=mqtt.MQTTv5, client_id =config['id'])
+    client.username_pw_set(username = config['mqtt']['username'], password=config['mqtt']['password'])
     
     client.on_connect = on_connect
     client.on_message = on_message
     
-    client.connect(config.mqtt.ip, config.mqtt.port, 60)
+    client.connect(config['mqtt']['ip'], config['mqtt']['port'], 60)
     client.loop_forever()
     
 if __name__ == '__main__':

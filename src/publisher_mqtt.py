@@ -9,11 +9,11 @@ PUBLISH_INTERVAL = 5
 QOS = 1
 
 def main():
-    config = load_config('../config/room1.config.json')
+    config = load_config('./config/room1.config.json')
     
-    client = mqtt.Client(protocol=mqtt.MQTTv5, client_id =config.id)
-    client.username_pw_set(username = config.mqtt.username, password=config.mqtt.password)
-    client.connect(config.mqtt.ip, config.mqtt.port, 60)
+    client = mqtt.Client(protocol=mqtt.MQTTv5, client_id =config['id'])
+    client.username_pw_set(username = config['mqtt']['username'], password=config['mqtt']['password'])
+    client.connect(config['mqtt']['ip'], config['mqtt']['port'], 60)
     client.loop_start()
     
     try:

@@ -1,9 +1,9 @@
 {
-    'id': 'master'
-    'mqtt': {
-        'ip': 'localhost',
-        'port': 1883,
-        'username': 'master'
-        'password': 'master',
+    "id": "master",
+    "mqtt": {
+        "ip": "localhost",
+        "port": 1883,
+        "username": "master",
+        "password": "master"
     }
 }
