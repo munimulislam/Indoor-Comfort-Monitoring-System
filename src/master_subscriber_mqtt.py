@@ -1,8 +1,7 @@
 import json
 import paho.mqtt.client as mqtt
+from config import load_config
 
-HOST = 'localhost'
-PORT = 1883
 TOPIC = "+/env"
 QOS = 1
 
@@ -17,11 +16,15 @@ def on_message(client, data, msg):
     print(data_in)
     
 def main():
-    client = mqtt.Client(protocol=mqtt.MQTTv5)
-    client.username_pw_set(username='master', password='master')
+    config = load_config('../config/master.config.json')
+
+    client = mqtt.Client(protocol=mqtt.MQTTv5, client_id =config.id)
+    client.username_pw_set(username = config.mqtt.username, password=config.mqtt.password)
+    
     client.on_connect = on_connect
     client.on_message = on_message
-    client.connect(HOST, PORT, 60)
+    
+    client.connect(config.mqtt.ip, config.mqtt.port, 60)
     client.loop_forever()
     
 if __name__ == '__main__':
