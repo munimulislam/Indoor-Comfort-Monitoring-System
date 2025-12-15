@@ -23,6 +23,8 @@ def write_prediction(data):
     with open(LOG_OUT_PATH, mode='a', newline='') as file:
         writer = csv.writer(file)
         writer.writerow(data)
+        
+open(LOG_OUT_PATH, "w").close()
 
 while True:
     data = load_data()
@@ -35,7 +37,7 @@ while True:
     prediction = get_prediction(x)
     context = get_context(prediction)
     
-    print(context)
+    print(f'[LOG::PREDICTION LOGGER] {context}')
     write_prediction([context])
     time.sleep(5)
     
