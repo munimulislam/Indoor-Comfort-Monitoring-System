@@ -23,8 +23,11 @@ source "$ROOT/venv/bin/activate"
 echo "Running Result Display"
 /usr/bin/python3 "$ROOM_NODE/display_result.py" & PID_RESULT_DISPLAY=$!
 
+echo "Running Joystick Input"
+/usr/bin/python3 "$ROOM_NODE/joystick_input.py" & PID_JOYSTICK_INPUT=$!
+
 trap 'echo "Stopping Room System"; \
-kill $PID_SENSOR_LOGGER $PID_RESULT_DISPLAY $PID_AI_PRED_LOGGER; \
+kill $PID_SENSOR_LOGGER $PID_RESULT_DISPLAY $PID_AI_PRED_LOGGER $PID_JOYSTICK_INPUT; \
 exit' SIGINT SIGTERM
 
 wait

@@ -4,6 +4,7 @@ import sys
 import pandas as pd
 import numpy as np
 from sense_hat import SenseHat
+from display_mode import is_adjust_mode
 
 PATH = './src/room_node/logs/status.csv'
 WINDOW = 1
@@ -26,6 +27,9 @@ signal.signal(signal.SIGINT, on_shutdown)
 signal.signal(signal.SIGTERM, on_shutdown)
 
 while True:
+    if is_adjust_mode():
+        continue
+    
     data = load_results()
     
     if data is None:

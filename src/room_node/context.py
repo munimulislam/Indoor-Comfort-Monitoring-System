@@ -1,17 +1,12 @@
 import json
-from pathlib import Path
+import os
 
 ROOM_CONFIG_PATH = './src/room_node/room.config.json'
 
 def load_config():
-    pth = Path(ROOM_CONFIG_PATH)
-    
-    if pth.exists():
-        with pth.open('r') as f:
-            return json.load(f)
-    else:
-        raise FileNotFoundError(f'No config file found - {path}')
-    
+    with open(ROOM_CONFIG_PATH, mode='r') as file:
+        return json.load(file)
+
 def get_context(pred):
     """
         convert numeric prediction into displayable string by comparing with user context

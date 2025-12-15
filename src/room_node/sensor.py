@@ -1,7 +1,5 @@
 from sense_hat import SenseHat
 import time
-import os
-import csv
 
 sense = SenseHat()
         
