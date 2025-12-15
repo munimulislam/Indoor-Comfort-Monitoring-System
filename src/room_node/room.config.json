@@ -5,5 +5,11 @@
         "port": 1883,
         "username": "room1",
         "password": "room1"
+    },
+    "comfort": {
+        "temp_min": 2.0,
+        "temp_max": 40.0,
+        "humidity_min": 30.0,
+        "humidity_max": 60.0
     }
 }
