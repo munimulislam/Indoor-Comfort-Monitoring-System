@@ -8,7 +8,7 @@ WINDOW = 1
 
 sense = SenseHat()
 
-def load_data():
+def load_results():
     df = pd.read_csv(PATH, header=None, names=['status'])
     
     if len(df) < WINDOW:
@@ -16,16 +16,16 @@ def load_data():
         
     return df.tail(1)[["status"]].values.astype(str)[0][0]
 
-def display_status(data):
-    sense.show_message(data)
-
 while True:
-    data = load_data()
+    data = load_results()
     
     if data is None:
         time.sleep(5)
         continue
         
     print(data)
-    display_status(data)
+    sense.show_message(data)
+    
     time.sleep(5)
+    
+    

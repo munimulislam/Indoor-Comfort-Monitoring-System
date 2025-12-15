@@ -1,6 +1,3 @@
-import json
-from collections import deque
-import numpy as np
 from ai_edge_litert.interpreter import Interpreter
 
 interpreter = Interpreter(model_path="src/room_node/comfort_forecast.tflite")
