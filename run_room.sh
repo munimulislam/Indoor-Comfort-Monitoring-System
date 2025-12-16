@@ -26,8 +26,11 @@ echo "Running Result Display"
 echo "Running Joystick Input"
 /usr/bin/python3 "$ROOM_NODE/joystick_input.py" & PID_JOYSTICK_INPUT=$!
 
+echo "Running MQTT Publisher"
+/usr/bin/python3 "$ROOM_NODE/publisher_mqtt.py" & PID_MQTT_PUBLISHER=$!
+
 trap 'echo "Stopping Room System"; \
-kill $PID_SENSOR_LOGGER $PID_RESULT_DISPLAY $PID_AI_PRED_LOGGER $PID_JOYSTICK_INPUT; \
+kill $PID_SENSOR_LOGGER $PID_RESULT_DISPLAY $PID_AI_PRED_LOGGER $PID_JOYSTICK_INPUT $PID_MQTT_PUBLISHER; \
 exit' SIGINT SIGTERM
 
 wait

@@ -2,14 +2,26 @@ import json
 import time
 import paho.mqtt.client as mqtt
 
-from sensor import sense_env_data
-from config import load_config
-
 PUBLISH_INTERVAL = 5
 QOS = 1
 
+STATUS_PATH = './src/room_node/logs/status.csv'
+CONFIG_PATH = 'src/room_node/room.config.json'
+
+def load_config():
+    with open(CONFIG_PATH, mode='r') as file:
+        return json.load(file) 
+
+def load_results():
+    df = pd.read_csv(STATUS_PATH, header=None, names=['status'])
+    
+    if len(df) < WINDOW:
+        return None
+        
+    return df.tail(1)[["status"]].values.astype(str)[0][0]
+
 def main():
-    config = load_config('./config/room1.config.json')
+    config = load_config()
     
     client = mqtt.Client(protocol=mqtt.MQTTv5, client_id =config['id'])
     client.username_pw_set(username = config['mqtt']['username'], password=config['mqtt']['password'])
@@ -19,13 +31,14 @@ def main():
     
     try:
         while True:
-            ts, temp, hum, press = sense_env_data()
+            data = load_results()
+    
+            if data is None:
+                continue
+            
             payload = {
-                'timestamp': ts,
                 'room': config['id'],
-                'temparature': temp,
-                'himidity': hum,
-                'pressure': press
+                'status': data
             }
 
             client.publish(f'{config['id']}/env', json.dumps(payload), qos=QOS)
