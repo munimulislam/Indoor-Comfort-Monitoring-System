@@ -1,9 +1,11 @@
 import json
 import time
+import pandas as pd
 import paho.mqtt.client as mqtt
 
 PUBLISH_INTERVAL = 5
 QOS = 1
+WINDOW = 1
 
 STATUS_PATH = './src/room_node/logs/status.csv'
 CONFIG_PATH = 'src/room_node/room.config.json'

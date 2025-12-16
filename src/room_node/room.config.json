@@ -1,1 +1,1 @@
-{"id": "room1", "mqtt": {"ip": "192.168.0.17", "port": 1883, "username": "room1", "password": "room1"}, "comfort": {"temp_min": 3.0, "temp_max": 41.5, "humidity_min": 31.0, "humidity_max": 60.0}}
+{"id": "room1", "mqtt": {"ip": "192.168.0.17", "port": 1883, "username": "room1", "password": "room1"}, "comfort": {"temp_min": 3.0, "temp_max": 40.5, "humidity_min": 31.0, "humidity_max": 61.0}}
