@@ -3,3 +3,4 @@ pandas>=1.3
 ai-edge-litert
 paho-mqtt>=1.6
 sense-hat
+flask
